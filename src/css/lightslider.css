@@ -128,11 +128,16 @@
 }
 .lSSlideOuter .lSPager.lSGallery li {
     overflow: hidden;
-    -webkit-transition: border-radius 0.12s linear 0s 0.35s linear 0s;
-    transition: border-radius 0.12s linear 0s 0.35s linear 0s;
+    transition: opacity .2s linear;
 }
-.lSSlideOuter .lSPager.lSGallery li.active, .lSSlideOuter .lSPager.lSGallery li:hover {
-    border-radius: 5px;
+.lSSlideOuter .lSPager.lSGallery li,
+.lSSlideOuter .lSPager.lSGallery:hover li.active {
+    opacity: 0.7;
+}
+.lSSlideOuter .lSPager.lSGallery li.active,
+.lSSlideOuter .lSPager.lSGallery li:hover,
+.lSSlideOuter .lSPager.lSGallery:hover li.active:hover{
+    opacity: 1;
 }
 .lSSlideOuter .lSPager.lSGallery img {
     display: block;
@@ -150,30 +155,52 @@
 
 /* slider actions */
 .lSAction > a {
-    width: 32px;
+    width: 70px;
     display: block;
-    top: 50%;
-    height: 32px;
-    background-image: url('../img/controls.png');
+    top: 0;
+    height: 100%;
     cursor: pointer;
     position: absolute;
     z-index: 99;
-    margin-top: -16px;
+    margin-top: 0;
     opacity: 0.5;
-    -webkit-transition: opacity 0.35s linear 0s;
-    transition: opacity 0.35s linear 0s;
+    -webkit-transition: all 0.35s linear 0s;
+    transition: all 0.35s linear 0s;
 }
 .lSAction > a:hover {
     opacity: 1;
+    background-color: rgba(0,0,0,0.4);
 }
+
+.lSAction .lSArrow {
+    background-image: url('../img/controls.png');
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 32px;
+    height: 32px;
+    margin-top: -16px;
+    margin-left: -16px;
+}
+
 .lSAction > .lSPrev {
     background-position: 0 0;
-    left: 10px;
+    left: 0;
 }
+
+.lSAction > .lSPrev > .lsArrow {
+    background-position: 0 0;
+}
+
 .lSAction > .lSNext {
     background-position: -32px 0;
-    right: 10px;
+    right: 0;
 }
+
+.lSAction > .lSNext > .lSArrow {
+    background-position: -32px 0;
+}
+
 .lSAction > a.disabled {
     pointer-events: none;
 }

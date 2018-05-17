@@ -1,6 +1,6 @@
-/*! lightslider - v1.1.6 - 2016-10-25
+/*! lightslider - v1.1.6 - 2018-05-17
 * https://github.com/sachinchoolur/lightslider
-* Copyright (c) 2016 Sachin N; Licensed MIT */
+* Copyright (c) 2018 Sachin N; Licensed MIT */
 (function ($, undefined) {
     'use strict';
     var defaults = {
@@ -29,6 +29,7 @@
         verticalHeight: 500,
         vThumbWidth: 100,
         thumbItem: 10,
+        thumbLowestHeight: false,
         pager: true,
         gallery: false,
         galleryMargin: 5,
@@ -185,7 +186,7 @@
             },
             controls: function () {
                 if (settings.controls) {
-                    $el.after('<div class="lSAction"><a class="lSPrev">' + settings.prevHtml + '</a><a class="lSNext">' + settings.nextHtml + '</a></div>');
+                    $el.after('<div class="lSAction"><a class="lSPrev"><div class="lSArrow"></div></a><a class="lSNext"><div class="lSArrow"></div></a></div>');
                     if (!settings.autoWidth) {
                         if (length <= settings.item) {
                             $slide.find('.lSAction').hide();
@@ -382,6 +383,23 @@
                     }
                     var $cSouter = $slide.parent();
                     $cSouter.find('.lSPager').html(pagers); 
+
+                    if (settings.gallery === true && settings.thumbLowestHeight === true){
+                        $cSouter.find('.lSPager img').one("load", function () {
+                            var maxThumbHeight = 3000;
+
+                            $cSouter.find('.lSPager img').each(function (index, element) {
+                                if(element.offsetHeight > 0){
+                                    maxThumbHeight = Math.min(maxThumbHeight, element.offsetHeight);
+                                }
+                            });
+
+                            $cSouter.find('.lSPager li').each(function (index, element) {
+                                element.style.maxHeight = maxThumbHeight + 'px';
+                            });
+                        });
+                    }
+
                     if (settings.gallery === true) {
                         if (settings.vertical === true) {
                             // set Gallery thumbnail width
